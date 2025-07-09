@@ -4,13 +4,14 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { urlFor } from "@/app/lib/client";
 import Image from "next/image";
 import { X, MessageCircle } from "lucide-react";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 interface Product {
   _id: string;
   title: string;
   price: number;
   category: string;
-  image: any;
+  image: SanityImageSource;
   description?: string;
   availability?: string;
   delivery?: string;
