@@ -9,18 +9,17 @@ interface ProductProps {
   title: string;
   price: number;
   image: SanityImageSource;
+  onClick?: () => void;
 }
 
-export default function ProductCard({ title, price, image }: ProductProps) {
-  // 👇 Log karo ki image object me kya aa raha hai
-  console.log("ProductCard Image Props ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
+export default function ProductCard({ title, price, image, onClick}: ProductProps) {
   console.log(JSON.stringify(image, null, 2));
-  console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
 
   const imageUrl = image ? urlFor(image).width(400).url() : "/j1.jpg";
 
   return (
     <motion.div
+      onClick={onClick}
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
@@ -34,6 +33,7 @@ export default function ProductCard({ title, price, image }: ProductProps) {
       />
       <h3 className="text-md font-semibold text-gray-800">{title}</h3>
       <p className="text-sm text-gray-600">₹{price}</p>
+      
     </motion.div>
   );
 }

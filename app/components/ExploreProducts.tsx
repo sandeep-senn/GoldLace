@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import ProductDrawer from "./ProductDrawer"; // ✅ ADDED
 import { motion } from "framer-motion";
 import { fetchProducts } from "@/app/lib/fetchProducts";
 
@@ -21,18 +22,22 @@ type Product = {
   price: number;
   category: string;
   image: string;
+  description?: string;
+  availability?: string;
+  delivery?: string;
 };
 
 export default function ExploreProducts() {
   const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
   const [products, setProducts] = useState<Product[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null); // ✅ ADDED
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false); // ✅ ADDED
 
   useEffect(() => {
-  fetchProducts().then((data) => {
-    setProducts(data);
-  });
-}, []);
-
+    fetchProducts().then((data) => {
+      setProducts(data);
+    });
+  }, []);
 
   return (
     <motion.section
@@ -40,7 +45,7 @@ export default function ExploreProducts() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="px-4 md:px-12 py-12 bg-[#fffafc]"
+      className="px-4 md:px-12 py-12 bg-[#e2b58a] border-t-2 border-gray-900"
     >
       <motion.h2
         initial={{ opacity: 0 }}
@@ -77,7 +82,7 @@ export default function ExploreProducts() {
                   onClick={() =>
                     setExpanded({ ...expanded, [category]: true })
                   }
-                  className="text-sm text-pink-600 hover:underline"
+                  className="text-xl text-pink-600 hover:underline"
                 >
                   View All →
                 </button>
@@ -94,7 +99,13 @@ export default function ExploreProducts() {
                   transition={{ duration: 0.4 }}
                   viewport={{ once: true }}
                 >
-                  <ProductCard {...item} />
+                  <ProductCard
+                    {...item}
+                    onClick={() => {
+                      setSelectedProduct(item);
+                      setIsDrawerOpen(true);
+                    }}
+                  />
                 </motion.div>
               ))}
             </div>
@@ -115,6 +126,15 @@ export default function ExploreProducts() {
           </motion.div>
         );
       })}
+
+      {/* Product Drawer */}
+      {selectedProduct && (
+        <ProductDrawer
+          product={selectedProduct}
+          open={isDrawerOpen}
+          onClose={() => setIsDrawerOpen(false)}
+        />
+      )}
     </motion.section>
   );
 }

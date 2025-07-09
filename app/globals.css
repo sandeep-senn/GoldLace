@@ -1,8 +1,11 @@
 @import "tailwindcss";
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
 
 :root {
-  --background: #ffffff;
-  --foreground: #ffffff;
+  --background: #e0b287;
+  --foreground: #e0b287 ;
 }
 
 @theme inline {
@@ -14,8 +17,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff;
-    --foreground: #ededed;
+    --background: #e0b287;
+    --foreground: #e0b287;
   }
 }
 

@@ -1,5 +1,10 @@
-import type { NextConfig } from "next";
-const nextConfig: NextConfig = {
+import dotenv from "dotenv";
+dotenv.config();
+
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+
+const nextConfig = {
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
@@ -7,9 +12,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.sanity.io",
         port: "",
-        pathname: `/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/**`,
+        pathname: `/images/${projectId}/${dataset}/**`, 
       },
-    ]
-  }
-}
+    ],
+  },
+};
+
 export default nextConfig;

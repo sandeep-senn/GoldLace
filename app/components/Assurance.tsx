@@ -10,7 +10,7 @@ export default function Assurance() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7 }}
       viewport={{ once: true }}
-      className="bg-white py-24 px-6 md:px-20 border-t border-gray-200"
+      className="bg-[#e0b287]  py-24 px-6 md:px-20 border-2 border-gray-200"
     >
       <div className="grid md:grid-cols-2 gap-10 items-center">
         {/* Left: Text Part */}
@@ -22,7 +22,7 @@ export default function Assurance() {
           className="text-center md:text-left"
         >
           <h2 className="text-5xl md:text-7xl font-light text-gray-800">
-            We <span className="text-red-700 font-semibold">Assure</span>
+            We <span className="text-blue-700 font-semibold">Assure</span>
           </h2>
           <p className="text-gray-500 mt-2 text-lg md:text-xl">
             Crafted by experts, cherished by you
@@ -60,7 +60,7 @@ function AnimatedFeature({
     >
       <Icon
         size={36}
-        className="text-yellow-600 mb-2 group-hover:scale-110 group-hover:text-yellow-700 transition"
+        className="text-blue-600 mb-2 group-hover:scale-110 group-hover:text-yellow-700 transition"
       />
       <p className="text-sm text-gray-800 font-medium leading-tight">
         {title}
