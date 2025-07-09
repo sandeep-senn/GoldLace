@@ -25,6 +25,6 @@ export const getAllProducts = `
 export const getAllBannersQuery = `
   *[_type == "banner"]{
     _id,
-    "image": image.asset->url
+    "images": images[].asset->url
   }
 `;

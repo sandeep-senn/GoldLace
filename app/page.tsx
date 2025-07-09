@@ -14,8 +14,8 @@ export default async function Home() {
 
   return (
     <>
-      <Hero {...heroData}/>
       <Banner images={bannerData[0]?.images || []} />
+      <Hero {...heroData}/>
       <ExploreProducts />
       <Assurance />
       <Connect />

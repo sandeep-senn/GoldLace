@@ -6,6 +6,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { urlFor } from "@/app/lib/client";
+
 interface SanityImage {
   asset: {
     _ref: string;
@@ -35,7 +36,7 @@ export default function Banner({ images }: BannerProps) {
           <SwiperSlide key={index}>
             <div className="relative w-full h-full">
               <Image
-                src={url}
+                src={typeof image === "string" ? image : urlFor(image).url()}
                 alt={`Banner ${index + 1}`}
                 fill
                 className="object-cover"

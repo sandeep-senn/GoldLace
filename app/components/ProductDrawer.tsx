@@ -1,14 +1,9 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import { urlFor } from "@/app/lib/client";
 import Image from "next/image";
-import { X } from "lucide-react";
+import { X, MessageCircle } from "lucide-react";
 
 interface Product {
   _id: string;
@@ -21,80 +16,70 @@ interface Product {
   delivery?: string;
 }
 
-interface DrawerProps {
+interface ModalProps {
   product: Product;
   open: boolean;
   onClose: () => void;
 }
 
-export default function ProductDrawer({ product, open, onClose }: DrawerProps) {
+export default function ProductDrawer({ product, open, onClose }: ModalProps) {
   return (
     <Dialog.Root open={open} onOpenChange={onClose}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/40 z-40" />
-        <Dialog.Content className="fixed right-0 top-0 h-full w-full sm:w-[90%] md:w-[500px] bg-white z-50 shadow-xl overflow-y-auto">
+        <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" />
+        <Dialog.Content className="fixed top-1/2 left-1/2 z-50 max-w-md w-[95%] bg-white text-black rounded-2xl shadow-2xl transform translate-x-1 translate-y-1 animate-fadeZoom overflow-hidden">
 
-          {/* Accessibility Title for Screen Readers */}
+          {/* Hidden for screen readers */}
           <Dialog.Title className="sr-only">{product.title}</Dialog.Title>
 
           {/* Close Button */}
-          <div className="flex justify-between items-center px-4 py-3 border-b">
-            <h2 className="text-lg font-semibold text-gray-800">
-              {product.title}
-            </h2>
-            <Dialog.Close asChild>
-              <button className="text-gray-600 hover:text-gray-800">
-                <X size={22} />
-              </button>
-            </Dialog.Close>
+          <Dialog.Close asChild>
+            <button
+              className="absolute top-4 right-4 text-black hover:text-red-500 p-1.5 rounded-full transition hover:bg-gray-200"
+              aria-label="Close"
+            >
+              <X size={20} />
+            </button>
+          </Dialog.Close>
+
+          {/* Image */}
+          <div className="relative w-full h-[280px] sm:h-[320px]">
+            <Image
+              src={urlFor(product.image).width(700).url()}
+              alt={product.title}
+              fill
+              className="object-cover rounded-t-2xl"
+            />
           </div>
 
-          {/* Image Carousel */}
-          <Swiper
-            modules={[Navigation, Pagination]}
-            navigation
-            pagination={{ clickable: true }}
-            className="w-full h-[300px]"
-          >
-            <SwiperSlide>
-              <Image
-                src={urlFor(product.image).width(600).url()}
-                alt={product.title}
-                width={600}
-                height={300}
-                className="w-full h-full object-cover"
-              />
-            </SwiperSlide>
-            {/* TODO: If multiple images available, map through them */}
-          </Swiper>
+          {/* Info */}
+          <div className="p-5 space-y-3">
+            <h2 className="text-xl font-semibold tracking-tight">{product.title}</h2>
 
-          {/* Details */}
-          <div className="p-4 space-y-3">
             {product.description && (
-              <p className="text-sm text-gray-600">{product.description}</p>
+              <p className="text-sm text-gray-700">{product.description}</p>
             )}
 
-            {product.availability && (
-              <p className="text-sm text-green-600">{product.availability}</p>
-            )}
+            <div className="text-sm space-y-1">
+              {product.availability && (
+                <p className="text-green-700 font-medium">{product.availability}</p>
+              )}
+              {product.delivery && (
+                <p className="text-gray-700">Delivery: {product.delivery}</p>
+              )}
+              <p className="text-gray-500">Category: {product.category}</p>
+            </div>
 
-            {product.delivery && (
-              <p className="text-sm text-gray-700">
-                Delivery: {product.delivery}
-              </p>
-            )}
-            <p className="text-sm text-gray-600">
-              Category: {product.category}
-            </p>
-            <p className="text-xl font-bold text-pink-700">₹{product.price}</p>
+            <p className="text-2xl font-bold text-black">₹{product.price}</p>
 
             <a
-              href={`https://wa.me/917222939004?text=Hi! I want to order: ${product.title} (₹${product.price})`}
+              href={`https://wa.me/919981416552?text=Hi! I want to order: ${product.title} (₹${product.price})`}
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-green-500 text-white text-center py-2 px-4 rounded hover:bg-green-600 transition"
+              className="mt-3 inline-flex items-center justify-center gap-2 bg-black text-white px-4 py-3 rounded-md hover:bg-gray-900 transition w-full"
             >
-              Order Now on WhatsApp
+              <MessageCircle size={18} />
+              Order on WhatsApp
             </a>
           </div>
         </Dialog.Content>
