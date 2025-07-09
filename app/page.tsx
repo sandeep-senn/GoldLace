@@ -2,7 +2,7 @@ import Hero from "@/app/components/Hero";
 import ExploreProducts from "./components/ExploreProducts";
 import Assurance from "./components/Assurance";
 import Connect from "./components/Connect";
-import WhatsappChat from "./components/Whatsapp"; // 👈 ADD THIS
+import WhatsappChat from "./components/Whatsapp"; 
 import { fetchHero } from "@/app/lib/fetchHero";
 import { fetchBanner } from "@/app/lib/fetchBanner";
 import Footer from "./components/Footer";
@@ -14,6 +14,7 @@ export default async function Home() {
 
   return (
     <>
+    <div>
       <Banner images={bannerData[0]?.images || []} />
       <Hero {...heroData}/>
       <ExploreProducts />
@@ -21,6 +22,7 @@ export default async function Home() {
       <Connect />
       <WhatsappChat />
       <Footer />
+      </div>
     </>
   );
 }
